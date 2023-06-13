@@ -6,94 +6,80 @@ import java.util.Scanner;
 public class Main {
 
     //Переменные
-    public static int score = 0;
-    public static int NumOfQuestion;
-    public static String UserAnswer = null;
+    public  static Scanner INPUT = new Scanner(System.in);
+    public static int UserInput;
+    public static boolean win = false;
     public static void main(String[] args) {
 
+        String[] Squares = new String[9];
+        Squares[0] = "1";
+        Squares[1] = "2";
+        Squares[2] = "3";
+        Squares[3] = "4";
+        Squares[4] = "5";
+        Squares[5] = "6";
+        Squares[6] = "7";
+        Squares[7] = "8";
+        Squares[8] = "9";
 
-        //Вопросы
-        String[] questions = new String[5];
-        questions[0] = "Вопрос 1";
-        questions[1] = "Вопрос 2";
-        questions[2] = "Вопрос 3";
-        questions[3] = "Вопрос 4";
-        questions[4] = "Вопрос 5";
+        int turn = 0;
+        String turnSimvol = null;
 
-
-
-        //Ответы
-        String[] answers = new String[5];
-        answers[0] = "Ответ 1";
-        answers[1] = "Ответ 2";
-        answers[2] = "Ответ 3";
-        answers[3] = "Ответ 4";
-        answers[4] = "Ответ 5";
-
-        //Сканер
-        Scanner INPUT = new Scanner(System.in);
+        //System.out.println("1|2|3");
+        //System.out.println("4|5|6");
+        //System.out.println("7|8|9");
 
 
-        //Переменная для обозначения победы
-        //String YesNo = "не";
 
-        //Вызов
-        while (true){
-            orator(questions, answers, INPUT);
-            if (NumOfQuestion == 5 && score < 5){
-                System.out.println("Ваш счет: " + score);
-                System.out.println("Вы не набрали нужное количество баллов");
-                break;
-            }
-            else {
-                System.out.println("Вы хотите продолжить?");
-                UserAnswer = INPUT.nextLine();
-                if (UserAnswer.toLowerCase().equals("да")){
-                    NumOfQuestion = 0;
-                    score = 0;
-                }
-                else {
-                    break;
-                }
+        while (!win) {
+            System.out.println(Squares[0]+ '|' + Squares[1] + '|' + Squares[2]);
+            System.out.println(Squares[3]+ '|' + Squares[4] + '|' + Squares[5]);
+            System.out.println(Squares[6]+ '|' + Squares[7] + '|' + Squares[8]);
+
+            turn = getTurn(Squares, turn);
+
+
+
+            if (Squares[0].equals(Squares[1]) && Squares[1].equals(Squares[2]) || Squares[3].equals(Squares[4]) && Squares[4].equals(Squares[5]) || Squares[6].equals(Squares[7]) && Squares[7].equals(Squares[8]) || Squares[0].equals(Squares[3]) && Squares[3].equals(Squares[6]) || Squares[1].equals(Squares[4]) && Squares[4].equals(Squares[7]) || Squares[2].equals(Squares[5]) && Squares[5].equals(Squares[8]) || Squares[0].equals(Squares[4]) && Squares[4].equals(Squares[8]) || Squares[2].equals(Squares[4]) && Squares[4].equals(Squares[6])){
+
+            win = true;
+            System.out.println(Squares[0]+ '|' + Squares[1] + '|' + Squares[2]);
+            System.out.println(Squares[3]+ '|' + Squares[4] + '|' + Squares[5]);
+            System.out.println(Squares[6]+ '|' + Squares[7] + '|' + Squares[8]);
+            System.out.println("Поздравляю с победой");
+
 
             }
+
+        }
+
         }
 
 
-    }
-
-    //Почти всё
-    public static void orator(String[] questions, String[] answers, Scanner INPUT){
-       while (NumOfQuestion != 5){
-         System.out.println("Внимание! Вопрос: " + questions[NumOfQuestion] + " Ваш ответ: ");
-         //Ввод и вызов определения победы
-         UserAnswer = INPUT.nextLine();
-         String YesNo = WinOrNo(answers);
-
-         NumOfQuestion++;
-
-         System.out.println("Ответ " + YesNo + "верный.");
-         System.out.println("Ваш счет: " + score);
-       }
 
 
 
 
-    }
-    //Метод для определения победил ты или нет
-    private static String WinOrNo(String[] answers) {
-        String YesNo;
-        if (UserAnswer.toLowerCase().equals(answers[NumOfQuestion].toLowerCase())){
-           YesNo = " ";
-           score++;
-         }
 
-        else {
-            YesNo = "не";
+    //Основная логика
+    private static int getTurn(String[] Squares, int turn) {
+        String turnSimvol;
+        UserInput= INPUT.nextInt() - 1;
+        if (turn == 0){
+            turnSimvol = "x";
+
+            if (Squares[UserInput] != "O" && Squares[UserInput] != "x") {
+                Squares[UserInput] = turnSimvol;
+                 turn++;
+            }
+        } else if (turn == 1) {
+            turnSimvol = "O";
+            if (Squares[UserInput] != "O" && Squares[UserInput] != "x") {
+                Squares[UserInput] = turnSimvol;
+                turn--;
+            }
+
         }
-        return YesNo;
-
+        return turn;
     }
-
-
 }

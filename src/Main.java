@@ -6,75 +6,91 @@ import java.util.Scanner;
 public class Main {
 
     //Переменные
+    public static boolean Break = false;
     public  static Scanner INPUT = new Scanner(System.in);
+    public  static  Scanner INANSWER = new Scanner(System.in);
     public static int UserInput;
-    public static boolean win = false;
+
     public static void main(String[] args) {
 
-        String[] Squares = new String[9];
-        Squares[0] = "1";
-        Squares[1] = "2";
-        Squares[2] = "3";
-        Squares[3] = "4";
-        Squares[4] = "5";
-        Squares[5] = "6";
-        Squares[6] = "7";
-        Squares[7] = "8";
-        Squares[8] = "9";
+
+        char[] Squares = new char[9];
 
         int turn = 0;
-        String turnSimvol = null;
 
-        //System.out.println("1|2|3");
-        //System.out.println("4|5|6");
-        //System.out.println("7|8|9");
-
+        for(int i=0; i<9; i++){
+            Squares[i]= (char) (i + 49);
+        }
 
 
-        while (!win) {
-            System.out.println(Squares[0]+ '|' + Squares[1] + '|' + Squares[2]);
-            System.out.println(Squares[3]+ '|' + Squares[4] + '|' + Squares[5]);
-            System.out.println(Squares[6]+ '|' + Squares[7] + '|' + Squares[8]);
+        while (!Break) {
+
+            System.out.println(Squares[0]+ "|" + Squares[1] + "|" + Squares[2]);
+            System.out.println(Squares[3]+ "|" + Squares[4] + "|" + Squares[5]);
+            System.out.println(Squares[6]+ "|" + Squares[7] + "|" + Squares[8]);
 
             turn = getTurn(Squares, turn);
 
 
+            if      (Squares[0] != '1' && Squares[1] != '2' && Squares[2] != '3'
+                    && Squares[3] != '4' && Squares[4] != '5' && Squares[5] != '6'
+                    && Squares[6] != '7' && Squares[7] != '8' && Squares[8] != '9'){
 
-            if (Squares[0].equals(Squares[1]) && Squares[1].equals(Squares[2]) || Squares[3].equals(Squares[4]) && Squares[4].equals(Squares[5]) || Squares[6].equals(Squares[7]) && Squares[7].equals(Squares[8]) || Squares[0].equals(Squares[3]) && Squares[3].equals(Squares[6]) || Squares[1].equals(Squares[4]) && Squares[4].equals(Squares[7]) || Squares[2].equals(Squares[5]) && Squares[5].equals(Squares[8]) || Squares[0].equals(Squares[4]) && Squares[4].equals(Squares[8]) || Squares[2].equals(Squares[4]) && Squares[4].equals(Squares[6])){
+                End(Squares);
 
-            win = true;
-            System.out.println(Squares[0]+ '|' + Squares[1] + '|' + Squares[2]);
-            System.out.println(Squares[3]+ '|' + Squares[4] + '|' + Squares[5]);
-            System.out.println(Squares[6]+ '|' + Squares[7] + '|' + Squares[8]);
-            System.out.println("Поздравляю с победой");
+            }
 
+            if      (Squares[0]  == (Squares[1]) && Squares[1] == (Squares[2])
+                    || Squares[3] == (Squares[4]) && Squares[4] == (Squares[5])
+                    || Squares[6] == (Squares[7]) && Squares[7] == (Squares[8])
+                    || Squares[0] == (Squares[3]) && Squares[3] == (Squares[6])
+                    || Squares[1] == (Squares[4]) && Squares[4] == (Squares[7])
+                    || Squares[2] == (Squares[5]) && Squares[5] == (Squares[8])
+                    || Squares[0] == (Squares[4]) && Squares[4] == (Squares[8])
+                    || Squares[2] == (Squares[4]) && Squares[4] == (Squares[6])) {
+
+                    System.out.println("Поздравляю с победой");
+                    End(Squares);
 
             }
 
         }
 
+    }
+
+    private static void End(char[] Squares) {
+        String UserAnswer;
+        System.out.println(Squares[0]+ "|" + Squares[1] + "|" + Squares[2]);
+        System.out.println(Squares[3]+ "|" + Squares[4] + "|" + Squares[5]);
+        System.out.println(Squares[6]+ "|" + Squares[7] + "|" + Squares[8]);
+        System.out.println("Начать заново?");
+
+        UserAnswer = INANSWER.nextLine();
+        if (UserAnswer.equalsIgnoreCase("да")){
+            for(int i=0; i<9; i++){
+                Squares[i]= (char) (i + 49);
+            }
+        }
+        else {
+            Break = true;
         }
 
-
-
-
-
-
+    }
 
     //Основная логика
-    private static int getTurn(String[] Squares, int turn) {
-        String turnSimvol;
+    private static int getTurn(char[] Squares, int turn) {
+        char turnSimvol;
         UserInput= INPUT.nextInt() - 1;
         if (turn == 0){
-            turnSimvol = "x";
+            turnSimvol = 'x';
 
-            if (Squares[UserInput] != "O" && Squares[UserInput] != "x") {
+            if (Squares[UserInput] != 'O' && Squares[UserInput] != 'x') {
                 Squares[UserInput] = turnSimvol;
                  turn++;
             }
         } else if (turn == 1) {
-            turnSimvol = "O";
-            if (Squares[UserInput] != "O" && Squares[UserInput] != "x") {
+            turnSimvol = 'O';
+            if (Squares[UserInput] != 'O' && Squares[UserInput] != 'x') {
                 Squares[UserInput] = turnSimvol;
                 turn--;
             }

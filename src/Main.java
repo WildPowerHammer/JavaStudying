@@ -32,13 +32,18 @@ public class Main {
             turn = getTurn(Squares, turn);
 
 
-            if      (Squares[0] != '1' && Squares[1] != '2' && Squares[2] != '3'
-                    && Squares[3] != '4' && Squares[4] != '5' && Squares[5] != '6'
-                    && Squares[6] != '7' && Squares[7] != '8' && Squares[8] != '9'){
+                boolean empty = true;
+                for(int i = 0; i<9; i++){
+                    if(Squares[i]!='x' && Squares[i]!='O'){
+                        break;
+                    }
+                    else if (i == 9 && Squares[i]!='x' && Squares[i]!='O'){
+                        End(Squares);
+                    }
 
-                End(Squares);
+                }
 
-            }
+
 
             if      (Squares[0]  == (Squares[1]) && Squares[1] == (Squares[2])
                     || Squares[3] == (Squares[4]) && Squares[4] == (Squares[5])

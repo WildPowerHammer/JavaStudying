@@ -32,13 +32,13 @@ public class Main {
             turn = getTurn(Squares, turn);
 
 
-                boolean empty = true;
                 for(int i = 0; i<9; i++){
                     if(Squares[i]!='x' && Squares[i]!='O'){
                         break;
                     }
-                    else if (i == 9 && Squares[i]!='x' && Squares[i]!='O'){
+                    if (i == 8){
                         End(Squares);
+
                     }
 
                 }

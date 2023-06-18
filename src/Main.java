@@ -1,106 +1,66 @@
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
+
 
 
 public class Main {
 
-    //Переменные
-    public static boolean Break = false;
-    public  static Scanner INPUT = new Scanner(System.in);
-    public  static  Scanner INANSWER = new Scanner(System.in);
-    public static int UserInput;
+
+    /*
+     * Exercise 3:
+     * Bank Management System:
+     * Create a Bank Management System which has the following components:
+     * Person (which saves first, middle and last name, age and a "social security number")
+     * Bank (which saves a List of customers and their Checking Accounts, maximum overdraw amount)
+     * Checking Account (should have a current value, methods for taking and depositing money)
+     * Opening a Checking Account should only work via a Bank and must require a certain amount of initial deposit.
+     *
+     * BONUS: Make the Banking System Interactive (No Solution provided!)
+     *
+     *
+     */
+     /*
+     * Упражнение 3:
+     * Система управления банком:
+     * Создайте систему управления банком, которая имеет следующие компоненты:
+     * Человек (который сохраняет имя, фамилию, возраст и "номер социального страхования")
+     * Банк (сохраняет список клиентов и их расчетные счета, максимальную сумму овердрафта)
+     * Расчетный счет (должен иметь текущее значение, методы снятия и внесения денег)
+     * Открытие чекового счета должно осуществляться только через банк и требовать определенную сумму первоначального депозита.
+     *
+     * БОНУС: Сделать банковскую систему интерактивной (Решение не предоставляется!)
+     *
+     *
+     */
+    public static List<Person> personList = new ArrayList<>();
 
     public static void main(String[] args) {
 
 
-        char[] Squares = new char[9];
-
-        int turn = 0;
-
-        for(int i=0; i<9; i++){
-            Squares[i]= (char) (i + 49);
-        }
+        addPerson();
 
 
-        while (!Break) {
-
-            System.out.println(Squares[0]+ "|" + Squares[1] + "|" + Squares[2]);
-            System.out.println(Squares[3]+ "|" + Squares[4] + "|" + Squares[5]);
-            System.out.println(Squares[6]+ "|" + Squares[7] + "|" + Squares[8]);
-
-            turn = getTurn(Squares, turn);
+        System.out.println(personList.get(0).name + personList.get(0).lastName + personList.get(0).age + personList.get(0).PID);
 
 
-                for(int i = 0; i<9; i++){
-                    if(Squares[i]!='x' && Squares[i]!='O'){
-                        break;
-                    }
-                    if (i == 8){
-                        End(Squares);
-
-                    }
-
-                }
-
-
-
-            if      (Squares[0]  == (Squares[1]) && Squares[1] == (Squares[2])
-                    || Squares[3] == (Squares[4]) && Squares[4] == (Squares[5])
-                    || Squares[6] == (Squares[7]) && Squares[7] == (Squares[8])
-                    || Squares[0] == (Squares[3]) && Squares[3] == (Squares[6])
-                    || Squares[1] == (Squares[4]) && Squares[4] == (Squares[7])
-                    || Squares[2] == (Squares[5]) && Squares[5] == (Squares[8])
-                    || Squares[0] == (Squares[4]) && Squares[4] == (Squares[8])
-                    || Squares[2] == (Squares[4]) && Squares[4] == (Squares[6])) {
-
-                    System.out.println("Поздравляю с победой");
-                    End(Squares);
-
-            }
-
-        }
 
     }
 
-    private static void End(char[] Squares) {
-        String UserAnswer;
-        System.out.println(Squares[0]+ "|" + Squares[1] + "|" + Squares[2]);
-        System.out.println(Squares[3]+ "|" + Squares[4] + "|" + Squares[5]);
-        System.out.println(Squares[6]+ "|" + Squares[7] + "|" + Squares[8]);
-        System.out.println("Начать заново?");
 
-        UserAnswer = INANSWER.nextLine();
-        if (UserAnswer.equalsIgnoreCase("да")){
-            for(int i=0; i<9; i++){
-                Squares[i]= (char) (i + 49);
-            }
-        }
-        else {
-            Break = true;
-        }
+    public static void addPerson(){
 
-    }
+        Scanner input = new Scanner(System.in);
 
-    //Основная логика
-    private static int getTurn(char[] Squares, int turn) {
-        char turnSimvol;
-        UserInput= INPUT.nextInt() - 1;
-        if (turn == 0){
-            turnSimvol = 'x';
+        String nameInput = input.nextLine();
+        String lastnameInput = input.nextLine();
+        int ageInput = input.nextInt();
+        int PIDInput = input.nextInt();
 
-            if (Squares[UserInput] != 'O' && Squares[UserInput] != 'x') {
-                Squares[UserInput] = turnSimvol;
-                 turn++;
-            }
-        } else if (turn == 1) {
-            turnSimvol = 'O';
-            if (Squares[UserInput] != 'O' && Squares[UserInput] != 'x') {
-                Squares[UserInput] = turnSimvol;
-                turn--;
-            }
 
-        }
-        return turn;
+        personList.add(new Person(nameInput, lastnameInput, ageInput, PIDInput));
     }
 }
